@@ -203,6 +203,42 @@ body {
 .tag-purple{ background: #E8DDEE; color: #6A4A7A; }
 .tag-emoji { font-size: 1.15rem; }
 
+/* ===== Nature Grid (Compact) ===== */
+.nature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.nature-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 1.25rem 1rem;
+  text-align: center;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-1);
+  transition: all 0.3s ease;
+}
+.nature-card:hover {
+  box-shadow: var(--shadow-2);
+  transform: translateY(-3px);
+  border-color: var(--primary-light);
+}
+.nature-icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+.nature-card h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+  color: var(--fg);
+}
+.nature-card p {
+  font-size: 0.78rem;
+  color: var(--muted-fg);
+  line-height: 1.55;
+}
+
 /* ===== Timeline ===== */
 .timeline {
   position: relative;
@@ -300,78 +336,99 @@ body {
 }
 .tl-photos img:hover { transform: scale(1.03); }
 
-/* ===== Photo Gallery ===== */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1rem;
+/* ===== Photo Carousel ===== */
+.carousel-section {
+  background: var(--bg-warm);
+  padding: 4rem 1.5rem;
+  overflow: hidden;
 }
-.gallery-item {
+.carousel-inner-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.carousel {
   position: relative;
   border-radius: var(--radius);
   overflow: hidden;
-  aspect-ratio: 4/3;
-  box-shadow: var(--shadow-1);
-  cursor: pointer;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-.gallery-item:hover {
   box-shadow: var(--shadow-2);
-  transform: translateY(-4px);
+  background: #000;
 }
-.gallery-item img {
+.carousel-track {
+  display: flex;
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.carousel-slide {
+  min-width: 100%;
+  position: relative;
+  aspect-ratio: 16 / 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+}
+.carousel-slide img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
+  object-fit: contain;
+  cursor: pointer;
 }
-.gallery-item:hover img { transform: scale(1.08); }
-.gallery-caption {
+.carousel-caption {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 2rem 1rem 0.75rem;
-  background: linear-gradient(to top, rgba(61,50,41,0.8), transparent);
+  padding: 2.5rem 2rem 1.5rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
   color: white;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 500;
-}
-
-/* ===== Nature Grid ===== */
-.nature-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
-}
-.nature-card {
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 2rem 1.5rem;
   text-align: center;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-1);
-  transition: all 0.3s ease;
+  pointer-events: none;
 }
-.nature-card:hover {
-  box-shadow: var(--shadow-2);
-  transform: translateY(-4px);
-  border-color: var(--primary-light);
-}
-.nature-icon {
-  font-size: 2.5rem;
-  margin-bottom: 0.75rem;
-}
-.nature-card h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.85);
+  border: none;
+  font-size: 1.5rem;
   color: var(--fg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
-.nature-card p {
-  font-size: 0.875rem;
-  color: var(--muted-fg);
-  line-height: 1.6;
+.carousel-btn:hover {
+  background: white;
+  transform: translateY(-50%) scale(1.1);
+}
+.carousel-btn.prev { left: 1.5rem; }
+.carousel-btn.next { right: 1.5rem; }
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+.carousel-dot.active {
+  background: var(--primary);
+  width: 24px;
+  border-radius: 9999px;
 }
 
 /* ===== Summary ===== */
@@ -450,6 +507,15 @@ body {
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
+  .nature-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  .nature-card { padding: 1rem 0.75rem; }
+  .nature-icon { font-size: 1.5rem; }
+  .nature-card h3 { font-size: 0.85rem; }
+  .nature-card p { font-size: 0.72rem; }
+
   .tl-grid { grid-template-columns: 1fr; }
   .timeline-line { left: 1.25rem; }
   .tl-dot { left: 1.25rem; }
@@ -464,7 +530,12 @@ body {
   .tl-item:nth-child(odd) .tl-spacer { display: none; }
   .section { padding: 3rem 1rem; }
   .section-alt { padding: 3rem 1rem; }
+  .carousel-section { padding: 2.5rem 1rem; }
   .summary-card { padding: 2rem 1.5rem; }
+  .carousel-slide { aspect-ratio: 4 / 3; }
+  .carousel-btn { width: 36px; height: 36px; font-size: 1.1rem; }
+  .carousel-btn.prev { left: 0.75rem; }
+  .carousel-btn.next { right: 0.75rem; }
 }
 </style>
 </head>
@@ -517,37 +588,33 @@ body {
   </div>
 </section>
 
-<!-- ===== Nature Exploration ===== -->
-<section class="section-alt">
+<!-- ===== Nature Exploration (Compact) ===== -->
+<section class="section-alt" style="padding: 3rem 1.5rem;">
   <div class="section-alt-inner">
-    <div style="text-align:center; margin-bottom: 2.5rem;">
+    <div style="text-align:center; margin-bottom: 1.5rem;">
       <div class="section-label">🌿 自然探索</div>
-      <h2 class="section-title">走进大自然，探索大自然</h2>
-      <p class="section-desc" style="margin-left:auto; margin-right:auto;">
-        大自然是最好的课堂。泥土的味道、河水的清凉、小动物的温度——
-        这些是书本给不了的触感，也是达哥这个夏天最珍贵的收获。
-      </p>
+      <h2 class="section-title" style="font-size: clamp(1.35rem, 3.5vw, 1.75rem);">走进大自然，探索大自然</h2>
     </div>
     <div class="nature-grid">
       <div class="nature-card">
         <div class="nature-icon">🌾</div>
         <h3>田间地头</h3>
-        <p>摘西瓜、摘葡萄、拔花生，亲手从土地里收获果实的喜悦，知道食物从哪里来。</p>
+        <p>摘西瓜、摘葡萄、拔花生，亲手从土地里收获果实。</p>
       </div>
       <div class="nature-card">
         <div class="nature-icon">🐜</div>
         <h3>虫子与泥土</h3>
-        <p>摸知了、抓蚯蚓，蹲在地上观察小生命，不怕脏不怕虫，好奇心比太阳还热烈。</p>
+        <p>摸知了、抓蚯蚓，蹲在地上观察小生命，好奇心满满。</p>
       </div>
       <div class="nature-card">
         <div class="nature-icon">🐾</div>
         <h3>动物朋友</h3>
-        <p>摸过鸭子、鱼、狗，喂过猫，学会温柔地对待每一个小生命，眼睛里满满都是善意。</p>
+        <p>摸过鸭子、鱼、狗，喂过猫，温柔对待每一个小生命。</p>
       </div>
       <div class="nature-card">
         <div class="nature-icon">🌊</div>
         <h3>清澈河流</h3>
-        <p>在清澈见底的河流里游泳，踩着鹅卵石，挥着红色小铲子，笑声和浪花一起飞溅。</p>
+        <p>在清澈见底的河流里游泳，踩着鹅卵石，笑声飞溅。</p>
       </div>
     </div>
   </div>
@@ -752,58 +819,64 @@ body {
   </div>
 </section>
 
-<!-- ===== Photo Gallery ===== -->
-<section class="section-alt">
-  <div class="section-alt-inner">
-    <div style="text-align:center; margin-bottom: 2.5rem;">
+<!-- ===== Photo Carousel ===== -->
+<section class="carousel-section">
+  <div class="carousel-inner-wrap">
+    <div style="text-align:center; margin-bottom: 2rem;">
       <div class="section-label">🖼️ 瞬间集锦</div>
-      <h2 class="section-title">夏天藏在每一张照片里</h2>
-      <p class="section-desc" style="margin-left:auto; margin-right:auto;">
-        点击任意照片可以放大查看。
+      <h2 class="section-title" style="font-size: clamp(1.35rem, 3.5vw, 1.75rem);">夏天藏在每一张照片里</h2>
+      <p class="section-desc" style="margin-left:auto; margin-right:auto; margin-bottom: 0; font-size: 0.95rem;">
+        照片自动轮播，点击可放大查看
       </p>
     </div>
-    <div class="gallery">
-      <div class="gallery-item">
-        <img src="photos/20260721_rainbow.jpg" alt="彩虹" onclick="openLightbox(this)">
-        <div class="gallery-caption">7月21日 · 雨后看见彩虹 🌈</div>
-      </div>
-      <div class="gallery-item">
-        <img src="photos/20260724_cicada.jpg" alt="看知了" onclick="openLightbox(this)">
-        <div class="gallery-caption">7月24日 · 和知了面对面 🦗</div>
-      </div>
-      <div class="gallery-item">
-        <img src="photos/20260808_grapes.jpg" alt="摘葡萄" onclick="openLightbox(this)">
-        <div class="gallery-caption">8月8日 · 葡萄园摘葡萄 🍇</div>
-      </div>
-      <div class="gallery-item">
-        <img src="photos/20260810_earthworm.jpg" alt="抓蚯蚓" onclick="openLightbox(this)">
-        <div class="gallery-caption">8月10日 · 泥土里抓蚯蚓 🐛</div>
-      </div>
-      <div class="gallery-item">
-        <img src="photos/20260810_peanuts.jpg" alt="拔花生" onclick="openLightbox(this)">
-        <div class="gallery-caption">8月10日 · 田里拔花生 🥜</div>
-      </div>
-      <div class="gallery-item">
-        <img src="photos/20260815_duckling_2.jpg" alt="捧着小鸭子" onclick="openLightbox(this)">
-        <div class="gallery-caption">8月15日 · 手心里的小鸭子 🐤</div>
-      </div>
-      <div class="gallery-item">
-        <img src="photos/20260819_swim_2.jpg" alt="河里游泳" onclick="openLightbox(this)">
-        <div class="gallery-caption">8月19日 · 清澈河流里游泳 🏊</div>
-      </div>
-      <div class="gallery-item">
-        <img src="photos/20260819_swim_1.jpg" alt="河里玩水" onclick="openLightbox(this)">
-        <div class="gallery-caption">8月19日 · 举着铲子玩水 🌊</div>
-      </div>
-      <div class="gallery-item">
-        <img src="photos/20260820_water_2.jpg" alt="玩水" onclick="openLightbox(this)">
-        <div class="gallery-caption">8月20日 · 盆边玩水 💦</div>
-      </div>
-      <div class="gallery-item">
-        <img src="photos/20260821_cat_2.jpg" alt="喂猫" onclick="openLightbox(this)">
-        <div class="gallery-caption">8月21日 · 喂外婆家的猫 🐱</div>
+
+    <div class="carousel" id="carousel">
+      <button class="carousel-btn prev" onclick="prevSlide()">‹</button>
+      <button class="carousel-btn next" onclick="nextSlide()">›</button>
+      <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-slide">
+          <img src="photos/20260721_rainbow.jpg" alt="7月21日 · 雨后看见彩虹" onclick="openLightbox(this)">
+          <div class="carousel-caption">7月21日 · 雨后看见彩虹 🌈</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="photos/20260724_cicada.jpg" alt="7月24日 · 和知了面对面" onclick="openLightbox(this)">
+          <div class="carousel-caption">7月24日 · 和知了面对面 🦗</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="photos/20260808_grapes.jpg" alt="8月8日 · 葡萄园摘葡萄" onclick="openLightbox(this)">
+          <div class="carousel-caption">8月8日 · 葡萄园摘葡萄 🍇</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="photos/20260810_earthworm.jpg" alt="8月10日 · 泥土里抓蚯蚓" onclick="openLightbox(this)">
+          <div class="carousel-caption">8月10日 · 泥土里抓蚯蚓 🐛</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="photos/20260810_peanuts.jpg" alt="8月10日 · 田里拔花生" onclick="openLightbox(this)">
+          <div class="carousel-caption">8月10日 · 田里拔花生 🥜</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="photos/20260815_duckling_2.jpg" alt="8月15日 · 手心里的小鸭子" onclick="openLightbox(this)">
+          <div class="carousel-caption">8月15日 · 手心里的小鸭子 🐤</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="photos/20260819_swim_2.jpg" alt="8月19日 · 清澈河流里游泳" onclick="openLightbox(this)">
+          <div class="carousel-caption">8月19日 · 清澈河流里游泳 🏊</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="photos/20260819_swim_1.jpg" alt="8月19日 · 举着铲子玩水" onclick="openLightbox(this)">
+          <div class="carousel-caption">8月19日 · 举着铲子玩水 🌊</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="photos/20260820_water_2.jpg" alt="8月20日 · 盆边玩水" onclick="openLightbox(this)">
+          <div class="carousel-caption">8月20日 · 盆边玩水 💦</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="photos/20260821_cat_2.jpg" alt="8月21日 · 喂外婆家的猫" onclick="openLightbox(this)">
+          <div class="carousel-caption">8月21日 · 喂外婆家的猫 🐱</div>
+        </div>
       </div>
     </div>
+    <div class="carousel-dots" id="carouselDots"></div>
   </div>
 </section>
 
@@ -840,6 +913,7 @@ body {
 </div>
 
 <script>
+// ===== Lightbox =====
 function openLightbox(img) {
   var lb = document.getElementById('lightbox');
   var lbImg = document.getElementById('lightbox-img');
@@ -852,6 +926,83 @@ function closeLightbox() {
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeLightbox();
 });
+
+// ===== Carousel =====
+var currentSlide = 0;
+var totalSlides = 0;
+var autoplayTimer = null;
+var track = document.getElementById('carouselTrack');
+var dotsContainer = document.getElementById('carouselDots');
+
+function initCarousel() {
+  var slides = track.querySelectorAll('.carousel-slide');
+  totalSlides = slides.length;
+  
+  // Create dots
+  for (var i = 0; i < totalSlides; i++) {
+    var dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', '跳转到第 ' + (i + 1) + ' 张');
+    (function(idx) {
+      dot.addEventListener('click', function() {
+        goToSlide(idx);
+        resetAutoplay();
+      });
+    })(i);
+    dotsContainer.appendChild(dot);
+  }
+  
+  startAutoplay();
+}
+
+function goToSlide(index) {
+  currentSlide = index;
+  track.style.transform = 'translateX(-' + (index * 100) + '%)';
+  var dots = dotsContainer.querySelectorAll('.carousel-dot');
+  dots.forEach(function(dot, i) {
+    dot.classList.toggle('active', i === index);
+  });
+}
+
+function nextSlide() {
+  goToSlide((currentSlide + 1) % totalSlides);
+}
+
+function prevSlide() {
+  goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
+}
+
+function startAutoplay() {
+  autoplayTimer = setInterval(nextSlide, 3500);
+}
+
+function resetAutoplay() {
+  clearInterval(autoplayTimer);
+  startAutoplay();
+}
+
+// Pause on hover
+var carouselEl = document.getElementById('carousel');
+carouselEl.addEventListener('mouseenter', function() {
+  clearInterval(autoplayTimer);
+});
+carouselEl.addEventListener('mouseleave', function() {
+  startAutoplay();
+});
+
+// Keyboard nav for carousel
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft') {
+    prevSlide();
+    resetAutoplay();
+  } else if (e.key === 'ArrowRight') {
+    nextSlide();
+    resetAutoplay();
+  }
+});
+
+// Init
+initCarousel();
 </script>
 </body>
 </html>

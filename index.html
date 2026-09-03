@@ -336,87 +336,116 @@ body {
 }
 .tl-photos img:hover { transform: scale(1.03); }
 
-/* ===== Photo Carousel ===== */
+/* ===== 3D Flip Card Carousel ===== */
 .carousel-section {
   background: var(--bg-warm);
   padding: 4rem 1.5rem;
   overflow: hidden;
 }
 .carousel-inner-wrap {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
 }
-.carousel {
+.flip-stage {
   position: relative;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-2);
-  background: #000;
-}
-.carousel-track {
-  display: flex;
-  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.carousel-slide {
-  min-width: 100%;
-  position: relative;
-  aspect-ratio: 16 / 7;
+  perspective: 1800px;
+  height: 520px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #1a1a1a;
 }
-.carousel-slide img {
+.flip-card {
+  position: relative;
   width: 100%;
+  max-width: 720px;
   height: 100%;
-  object-fit: contain;
-  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1);
 }
-.carousel-caption {
+.flip-face {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 2.5rem 2rem 1.5rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-  color: white;
-  font-size: 0.95rem;
-  font-weight: 500;
-  text-align: center;
-  pointer-events: none;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-2);
+  background: var(--card);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
 }
-.carousel-btn {
+.flip-face.back {
+  transform: rotateY(180deg);
+}
+.flip-photo-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #FFF9F0 0%, #F7E8D8 100%);
+  padding: 1rem;
+}
+.flip-photo-wrap img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(61, 50, 41, 0.12);
+  transition: transform 0.3s ease;
+}
+.flip-photo-wrap img:hover { transform: scale(1.02); }
+.flip-caption {
+  padding: 1rem 1.5rem 1.25rem;
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--fg);
+}
+.flip-caption .date {
+  font-size: 0.78rem;
+  color: var(--primary);
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+.flip-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.85);
-  border: none;
+  background: var(--card);
+  border: 1px solid var(--border);
   font-size: 1.5rem;
-  color: var(--fg);
+  color: var(--primary);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
   z-index: 10;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: var(--shadow-1);
 }
-.carousel-btn:hover {
-  background: white;
+.flip-btn:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
   transform: translateY(-50%) scale(1.1);
+  box-shadow: var(--shadow-2);
 }
-.carousel-btn.prev { left: 1.5rem; }
-.carousel-btn.next { right: 1.5rem; }
-.carousel-dots {
+.flip-btn.prev { left: 1rem; }
+.flip-btn.next { right: 1rem; }
+.flip-dots {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  margin-top: 1.25rem;
+  margin-top: 1.5rem;
 }
-.carousel-dot {
+.flip-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -425,11 +454,18 @@ body {
   transition: all 0.3s ease;
   border: none;
 }
-.carousel-dot.active {
+.flip-dot.active {
   background: var(--primary);
   width: 24px;
   border-radius: 9999px;
 }
+.flip-counter {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted-fg);
+  margin-top: 0.75rem;
+}
+.flip-counter b { color: var(--primary); }
 
 /* ===== Summary ===== */
 .summary-card {
@@ -532,10 +568,10 @@ body {
   .section-alt { padding: 3rem 1rem; }
   .carousel-section { padding: 2.5rem 1rem; }
   .summary-card { padding: 2rem 1.5rem; }
-  .carousel-slide { aspect-ratio: 4 / 3; }
-  .carousel-btn { width: 36px; height: 36px; font-size: 1.1rem; }
-  .carousel-btn.prev { left: 0.75rem; }
-  .carousel-btn.next { right: 0.75rem; }
+  .flip-stage { height: 380px; }
+  .flip-btn { width: 36px; height: 36px; font-size: 1.1rem; }
+  .flip-btn.prev { left: 0.25rem; }
+  .flip-btn.next { right: 0.25rem; }
 }
 </style>
 </head>
@@ -830,53 +866,26 @@ body {
       </p>
     </div>
 
-    <div class="carousel" id="carousel">
-      <button class="carousel-btn prev" onclick="prevSlide()">‹</button>
-      <button class="carousel-btn next" onclick="nextSlide()">›</button>
-      <div class="carousel-track" id="carouselTrack">
-        <div class="carousel-slide">
-          <img src="photos/20260721_rainbow.jpg" alt="7月21日 · 雨后看见彩虹" onclick="openLightbox(this)">
-          <div class="carousel-caption">7月21日 · 雨后看见彩虹 🌈</div>
+    <div class="flip-stage" id="flipStage">
+      <button class="flip-btn prev" onclick="prevFlip()">‹</button>
+      <button class="flip-btn next" onclick="nextFlip()">›</button>
+      <div class="flip-card" id="flipCard">
+        <div class="flip-face front" id="flipFront">
+          <div class="flip-photo-wrap">
+            <img src="photos/20260721_rainbow.jpg" alt="7月21日 · 雨后看见彩虹" onclick="openLightbox(this)">
+          </div>
+          <div class="flip-caption"><span class="date">7月21日</span>雨后看见彩虹 🌈</div>
         </div>
-        <div class="carousel-slide">
-          <img src="photos/20260724_cicada.jpg" alt="7月24日 · 和知了面对面" onclick="openLightbox(this)">
-          <div class="carousel-caption">7月24日 · 和知了面对面 🦗</div>
-        </div>
-        <div class="carousel-slide">
-          <img src="photos/20260808_grapes.jpg" alt="8月8日 · 葡萄园摘葡萄" onclick="openLightbox(this)">
-          <div class="carousel-caption">8月8日 · 葡萄园摘葡萄 🍇</div>
-        </div>
-        <div class="carousel-slide">
-          <img src="photos/20260810_earthworm.jpg" alt="8月10日 · 泥土里抓蚯蚓" onclick="openLightbox(this)">
-          <div class="carousel-caption">8月10日 · 泥土里抓蚯蚓 🐛</div>
-        </div>
-        <div class="carousel-slide">
-          <img src="photos/20260810_peanuts.jpg" alt="8月10日 · 田里拔花生" onclick="openLightbox(this)">
-          <div class="carousel-caption">8月10日 · 田里拔花生 🥜</div>
-        </div>
-        <div class="carousel-slide">
-          <img src="photos/20260815_duckling_2.jpg" alt="8月15日 · 手心里的小鸭子" onclick="openLightbox(this)">
-          <div class="carousel-caption">8月15日 · 手心里的小鸭子 🐤</div>
-        </div>
-        <div class="carousel-slide">
-          <img src="photos/20260819_swim_2.jpg" alt="8月19日 · 清澈河流里游泳" onclick="openLightbox(this)">
-          <div class="carousel-caption">8月19日 · 清澈河流里游泳 🏊</div>
-        </div>
-        <div class="carousel-slide">
-          <img src="photos/20260819_swim_1.jpg" alt="8月19日 · 举着铲子玩水" onclick="openLightbox(this)">
-          <div class="carousel-caption">8月19日 · 举着铲子玩水 🌊</div>
-        </div>
-        <div class="carousel-slide">
-          <img src="photos/20260820_water_2.jpg" alt="8月20日 · 盆边玩水" onclick="openLightbox(this)">
-          <div class="carousel-caption">8月20日 · 盆边玩水 💦</div>
-        </div>
-        <div class="carousel-slide">
-          <img src="photos/20260821_cat_2.jpg" alt="8月21日 · 喂外婆家的猫" onclick="openLightbox(this)">
-          <div class="carousel-caption">8月21日 · 喂外婆家的猫 🐱</div>
+        <div class="flip-face back" id="flipBack">
+          <div class="flip-photo-wrap">
+            <img src="photos/20260724_cicada.jpg" alt="7月24日 · 和知了面对面" onclick="openLightbox(this)">
+          </div>
+          <div class="flip-caption"><span class="date">7月24日</span>和知了面对面 🦗</div>
         </div>
       </div>
     </div>
-    <div class="carousel-dots" id="carouselDots"></div>
+    <div class="flip-dots" id="flipDots"></div>
+    <div class="flip-counter"><b id="flipCurrent">1</b> / <span id="flipTotal">10</span></div>
   </div>
 </section>
 
@@ -927,82 +936,138 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeLightbox();
 });
 
-// ===== Carousel =====
-var currentSlide = 0;
-var totalSlides = 0;
-var autoplayTimer = null;
-var track = document.getElementById('carouselTrack');
-var dotsContainer = document.getElementById('carouselDots');
+// ===== 3D Flip Carousel =====
+var flipPhotos = [
+  { src: 'photos/20260721_rainbow.jpg', date: '7月21日', title: '雨后看见彩虹 🌈' },
+  { src: 'photos/20260724_cicada.jpg', date: '7月24日', title: '和知了面对面 🦗' },
+  { src: 'photos/20260808_grapes.jpg', date: '8月8日', title: '葡萄园摘葡萄 🍇' },
+  { src: 'photos/20260810_earthworm.jpg', date: '8月10日', title: '泥土里抓蚯蚓 🐛' },
+  { src: 'photos/20260810_peanuts.jpg', date: '8月10日', title: '田里拔花生 🥜' },
+  { src: 'photos/20260815_duckling_2.jpg', date: '8月15日', title: '手心里的小鸭子 🐤' },
+  { src: 'photos/20260819_swim_2.jpg', date: '8月19日', title: '清澈河流里游泳 🏊' },
+  { src: 'photos/20260819_swim_1.jpg', date: '8月19日', title: '举着铲子玩水 🌊' },
+  { src: 'photos/20260820_water_2.jpg', date: '8月20日', title: '盆边玩水 💦' },
+  { src: 'photos/20260821_cat_2.jpg', date: '8月21日', title: '喂外婆家的猫 🐱' }
+];
+var flipIndex = 0;
+var isFlipped = false;
+var flipAutoplay = null;
+var flipCard = document.getElementById('flipCard');
+var flipFront = document.getElementById('flipFront');
+var flipBack = document.getElementById('flipBack');
+var flipDotsEl = document.getElementById('flipDots');
+var flipCurrentEl = document.getElementById('flipCurrent');
+var flipTotalEl = document.getElementById('flipTotal');
+var flipStageEl = document.getElementById('flipStage');
 
-function initCarousel() {
-  var slides = track.querySelectorAll('.carousel-slide');
-  totalSlides = slides.length;
-  
+function initFlip() {
+  flipTotalEl.textContent = flipPhotos.length;
   // Create dots
-  for (var i = 0; i < totalSlides; i++) {
+  for (var i = 0; i < flipPhotos.length; i++) {
     var dot = document.createElement('button');
-    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-    dot.setAttribute('aria-label', '跳转到第 ' + (i + 1) + ' 张');
+    dot.className = 'flip-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', '第 ' + (i + 1) + ' 张');
     (function(idx) {
       dot.addEventListener('click', function() {
-        goToSlide(idx);
-        resetAutoplay();
+        goToFlip(idx);
+        resetFlipAutoplay();
       });
     })(i);
-    dotsContainer.appendChild(dot);
+    flipDotsEl.appendChild(dot);
   }
-  
-  startAutoplay();
+  startFlipAutoplay();
 }
 
-function goToSlide(index) {
-  currentSlide = index;
-  track.style.transform = 'translateX(-' + (index * 100) + '%)';
-  var dots = dotsContainer.querySelectorAll('.carousel-dot');
+function updateFace(faceEl, index) {
+  var photo = flipPhotos[index];
+  var img = faceEl.querySelector('img');
+  var caption = faceEl.querySelector('.flip-caption');
+  img.src = photo.src;
+  img.alt = photo.date + ' · ' + photo.title;
+  caption.innerHTML = '<span class="date">' + photo.date + '</span>' + photo.title;
+}
+
+function nextFlip() {
+  var nextIdx = (flipIndex + 1) % flipPhotos.length;
+  // Update the back face with next photo, then flip
+  if (!isFlipped) {
+    updateFace(flipBack, nextIdx);
+    flipCard.style.transform = 'rotateY(180deg)';
+  } else {
+    updateFace(flipFront, nextIdx);
+    flipCard.style.transform = 'rotateY(360deg)';
+  }
+  isFlipped = !isFlipped;
+  flipIndex = nextIdx;
+  updateFlipUI();
+}
+
+function prevFlip() {
+  var prevIdx = (flipIndex - 1 + flipPhotos.length) % flipPhotos.length;
+  if (!isFlipped) {
+    updateFace(flipBack, prevIdx);
+    flipCard.style.transform = 'rotateY(-180deg)';
+  } else {
+    updateFace(flipFront, prevIdx);
+    flipCard.style.transform = 'rotateY(0deg)';
+  }
+  isFlipped = !isFlipped;
+  flipIndex = prevIdx;
+  updateFlipUI();
+}
+
+function goToFlip(idx) {
+  if (idx === flipIndex) return;
+  var nextIdx = idx;
+  if (!isFlipped) {
+    updateFace(flipBack, nextIdx);
+    flipCard.style.transform = 'rotateY(180deg)';
+  } else {
+    updateFace(flipFront, nextIdx);
+    flipCard.style.transform = 'rotateY(360deg)';
+  }
+  isFlipped = !isFlipped;
+  flipIndex = nextIdx;
+  updateFlipUI();
+}
+
+function updateFlipUI() {
+  flipCurrentEl.textContent = flipIndex + 1;
+  var dots = flipDotsEl.querySelectorAll('.flip-dot');
   dots.forEach(function(dot, i) {
-    dot.classList.toggle('active', i === index);
+    dot.classList.toggle('active', i === flipIndex);
   });
 }
 
-function nextSlide() {
-  goToSlide((currentSlide + 1) % totalSlides);
+function startFlipAutoplay() {
+  flipAutoplay = setInterval(nextFlip, 4000);
 }
 
-function prevSlide() {
-  goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
-}
-
-function startAutoplay() {
-  autoplayTimer = setInterval(nextSlide, 3500);
-}
-
-function resetAutoplay() {
-  clearInterval(autoplayTimer);
-  startAutoplay();
+function resetFlipAutoplay() {
+  clearInterval(flipAutoplay);
+  startFlipAutoplay();
 }
 
 // Pause on hover
-var carouselEl = document.getElementById('carousel');
-carouselEl.addEventListener('mouseenter', function() {
-  clearInterval(autoplayTimer);
+flipStageEl.addEventListener('mouseenter', function() {
+  clearInterval(flipAutoplay);
 });
-carouselEl.addEventListener('mouseleave', function() {
-  startAutoplay();
+flipStageEl.addEventListener('mouseleave', function() {
+  startFlipAutoplay();
 });
 
-// Keyboard nav for carousel
+// Keyboard nav
 document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowLeft') {
-    prevSlide();
-    resetAutoplay();
+    prevFlip();
+    resetFlipAutoplay();
   } else if (e.key === 'ArrowRight') {
-    nextSlide();
-    resetAutoplay();
+    nextFlip();
+    resetFlipAutoplay();
   }
 });
 
-// Init
-initCarousel();
+initFlip();
 </script>
 </body>
 </html>

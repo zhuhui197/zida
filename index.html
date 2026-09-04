@@ -3,353 +3,564 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>达哥的2026快乐暑假</title>
+<title>达哥的2026快乐暑假 · 夏日手账</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Serif+SC:wght@400;600;700&family=Long+Cang&display=swap" rel="stylesheet">
 <style>
+/* ===== CSS Variables ===== */
 :root {
-  --bg: #FDF8F3;
-  --bg-warm: #FFF9F0;
-  --fg: #3D3229;
-  --card: #FFFFFF;
-  --primary: #C77854;
-  --primary-light: #E8A583;
-  --primary-dark: #A05A3C;
-  --muted: #F7F0E8;
-  --muted-fg: #6B5E52;
-  --border: #E8DDD3;
-  --summer-green: #7A9E7E;
-  --summer-blue: #6BA3C4;
-  --summer-yellow: #E8C547;
-  --summer-sky: #B8DCE8;
-  --radius: 16px;
-  --radius-sm: 8px;
-  --shadow-1: 0 2px 8px rgba(61, 50, 41, 0.06);
-  --shadow-2: 0 12px 32px -8px rgba(61, 50, 41, 0.18);
-  --font-sans: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+  --paper: #F7EFE3;
+  --paper-light: #FBF6ED;
+  --paper-dark: #EFE3CF;
+  --ink: #3A2E24;
+  --ink-light: #6B5A4A;
+  --ink-faint: #9A8B7A;
+  --accent: #D9634A;
+  --accent-light: #E88971;
+  --accent-dark: #B84A33;
+  --sage: #7A9E6E;
+  --sage-light: #A8C49A;
+  --sky: #6BA3C4;
+  --sky-light: #A3CADD;
+  --sun: #E8B547;
+  --sun-light: #F0CD78;
+  --lavender: #9B8AB8;
+  --tape-pink: #F5C6BC;
+  --tape-yellow: #F5E0A8;
+  --tape-green: #C8DCC0;
+  --tape-blue: #BEDAE5;
+  --shadow-soft: 0 4px 20px rgba(58, 46, 36, 0.08);
+  --shadow-card: 0 8px 30px rgba(58, 46, 36, 0.12);
+  --shadow-lift: 0 16px 48px rgba(58, 46, 36, 0.18);
+  --font-display: 'ZCOOL KuaiLe', 'PingFang SC', cursive;
+  --font-body: 'Noto Serif SC', 'PingFang SC', Georgia, serif;
+  --font-hand: 'Long Cang', cursive;
 }
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
-  background: var(--bg);
-  color: var(--fg);
-  font-family: var(--font-sans);
-  line-height: 1.7;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.8;
   -webkit-font-smoothing: antialiased;
+  position: relative;
 }
+
+/* Paper grain texture */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+body > * { position: relative; z-index: 1; }
+
+/* ===== Utility ===== */
+.polaroid {
+  background: white;
+  padding: 12px 12px 48px 12px;
+  box-shadow: var(--shadow-card);
+  border-radius: 2px;
+  position: relative;
+}
+.polaroid::after {
+  content: '';
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-hand);
+  font-size: 0.9rem;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+.tape {
+  position: absolute;
+  width: 80px;
+  height: 28px;
+  opacity: 0.75;
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.tape-top-left { top: -10px; left: 50%; transform: translateX(-50%) rotate(-3deg); }
+.tape-pink { background: var(--tape-pink); }
+.tape-yellow { background: var(--tape-yellow); }
+.tape-green { background: var(--tape-green); }
+.tape-blue { background: var(--tape-blue); }
 
 /* ===== Hero ===== */
 .hero {
   position: relative;
-  min-height: 90vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: linear-gradient(135deg, #B8DCE8 0%, #E8D5B7 40%, #F5E6D0 70%, #FFF9F0 100%);
+  padding: 3rem 1.5rem;
 }
-.hero::before {
-  content: '';
+
+.hero-bg {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at 80% 20%, rgba(232, 197, 71, 0.25), transparent 50%),
-    radial-gradient(circle at 20% 80%, rgba(122, 158, 126, 0.2), transparent 50%);
-  pointer-events: none;
+  background: 
+    radial-gradient(ellipse at 30% 20%, rgba(232, 181, 71, 0.25), transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(122, 158, 110, 0.18), transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(217, 99, 74, 0.12), transparent 50%);
 }
-.hero-content {
-  position: relative;
-  text-align: center;
-  padding: 2rem;
-  z-index: 1;
-}
-.hero-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1.25rem;
-  background: rgba(255,255,255,0.6);
-  backdrop-filter: blur(8px);
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--primary-dark);
-  border: 1px solid rgba(255,255,255,0.8);
-  margin-bottom: 1.5rem;
-}
-.hero-tag span { font-size: 1.1rem; }
-.hero h1 {
-  font-size: clamp(2.5rem, 8vw, 5.5rem);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  color: var(--fg);
-  margin-bottom: 1rem;
-  text-shadow: 0 2px 20px rgba(255,255,255,0.5);
-}
-.hero h1 .accent {
-  background: linear-gradient(135deg, var(--primary), var(--summer-yellow));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.hero .subtitle {
-  font-size: clamp(1rem, 3vw, 1.35rem);
-  color: var(--muted-fg);
-  max-width: 36rem;
-  margin: 0 auto 0.5rem;
-  line-height: 1.8;
-}
-.hero .meta {
-  font-size: 0.875rem;
-  color: var(--muted-fg);
-  margin-top: 1.5rem;
-  letter-spacing: 0.05em;
-}
-.hero .meta span { margin: 0 0.5rem; }
 
-/* Sun animation */
-.sun {
+.hero-scrapbook {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  aspect-ratio: 4/5;
+  max-height: 85vh;
+}
+
+/* Big polaroid in center */
+.hero-main-polaroid {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-2deg);
+  width: 55%;
+  background: white;
+  padding: 14px 14px 56px 14px;
+  box-shadow: var(--shadow-lift);
+  z-index: 5;
+  border-radius: 2px;
+}
+.hero-main-polaroid img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  border-radius: 1px;
+}
+.hero-main-polaroid .caption {
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  color: var(--ink-faint);
+}
+
+/* Floating small polaroids */
+.hero-float {
+  position: absolute;
+  background: white;
+  padding: 8px 8px 36px 8px;
+  box-shadow: var(--shadow-card);
+  border-radius: 2px;
+  width: 28%;
+}
+.hero-float img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 1px;
+}
+.hero-float .caption {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-hand);
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+}
+.hero-float-1 { top: 8%; left: 5%; transform: rotate(-8deg); z-index: 3; animation: float1 6s ease-in-out infinite; }
+.hero-float-2 { top: 15%; right: 8%; transform: rotate(6deg); z-index: 4; animation: float2 7s ease-in-out infinite; }
+.hero-float-3 { bottom: 12%; left: 10%; transform: rotate(5deg); z-index: 2; animation: float3 8s ease-in-out infinite; }
+.hero-float-4 { bottom: 8%; right: 5%; transform: rotate(-6deg); z-index: 3; animation: float2 6.5s ease-in-out infinite; }
+
+@keyframes float1 {
+  0%, 100% { transform: rotate(-8deg) translateY(0); }
+  50% { transform: rotate(-6deg) translateY(-10px); }
+}
+@keyframes float2 {
+  0%, 100% { transform: rotate(6deg) translateY(0); }
+  50% { transform: rotate(4deg) translateY(-8px); }
+}
+@keyframes float3 {
+  0%, 100% { transform: rotate(5deg) translateY(0); }
+  50% { transform: rotate(7deg) translateY(-12px); }
+}
+
+/* Hero text overlay */
+.hero-title-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+  width: 100%;
+  pointer-events: none;
+  padding: 0 1rem;
+}
+.hero-date-tag {
+  display: inline-block;
+  font-family: var(--font-hand);
+  font-size: 1.3rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  transform: rotate(-2deg);
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+  text-shadow: 2px 2px 0 rgba(255,255,255,0.5);
+}
+.hero-title .accent {
+  color: var(--accent);
+  display: inline-block;
+  transform: rotate(-2deg);
+}
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+  color: var(--ink-light);
+  max-width: 32rem;
+  margin: 0 auto;
+  line-height: 1.9;
+}
+.hero-meta {
+  margin-top: 1.5rem;
+  font-family: var(--font-hand);
+  font-size: 1.1rem;
+  color: var(--ink-faint);
+}
+
+/* Sun decoration */
+.hero-sun {
   position: absolute;
   top: 8%;
-  right: 10%;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #FFE5A0 0%, #FFD060 60%, transparent 70%);
-  animation: sunPulse 4s ease-in-out infinite;
-  z-index: 0;
+  right: 12%;
+  width: 120px;
+  height: 120px;
+  z-index: 1;
+  animation: sunPulse 5s ease-in-out infinite;
+}
+.hero-sun::before {
+  content: '☀️';
+  font-size: 80px;
+  filter: drop-shadow(0 4px 12px rgba(232, 181, 71, 0.4));
 }
 @keyframes sunPulse {
-  0%, 100% { transform: scale(1); opacity: 0.7; }
-  50% { transform: scale(1.1); opacity: 0.9; }
-}
-
-/* Cloud decorations */
-.cloud {
-  position: absolute;
-  background: rgba(255,255,255,0.7);
-  border-radius: 9999px;
-  filter: blur(2px);
-  z-index: 0;
-}
-.cloud-1 { top: 15%; left: 8%; width: 120px; height: 40px; animation: drift 20s linear infinite; }
-.cloud-2 { top: 30%; right: 25%; width: 80px; height: 28px; animation: drift 15s linear infinite reverse; }
-.cloud-3 { bottom: 25%; left: 15%; width: 100px; height: 35px; animation: drift 25s linear infinite; }
-@keyframes drift {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(30px); }
-  100% { transform: translateX(0); }
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.1) rotate(10deg); }
 }
 
 /* ===== Sections ===== */
 .section {
   padding: 5rem 1.5rem;
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
 }
-.section-alt {
-  background: var(--bg-warm);
-  padding: 5rem 1.5rem;
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
 }
-.section-alt-inner {
-  max-width: 1200px;
+.section-tag {
+  display: inline-block;
+  font-family: var(--font-hand);
+  font-size: 1.4rem;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+  transform: rotate(-1deg);
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.02em;
+}
+.section-desc {
+  font-size: 1rem;
+  color: var(--ink-light);
+  max-width: 36rem;
   margin: 0 auto;
+  line-height: 1.9;
 }
-.section-label {
+
+/* ===== Activity Stickers ===== */
+.stickers-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 1rem 0;
+}
+.sticker {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--primary);
-  margin-bottom: 0.75rem;
-}
-.section-title {
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-  font-weight: 700;
-  color: var(--fg);
-  margin-bottom: 0.75rem;
-  letter-spacing: -0.01em;
-}
-.section-desc {
-  font-size: 1.05rem;
-  color: var(--muted-fg);
-  max-width: 40rem;
-  margin-bottom: 3rem;
-}
-
-/* ===== Activity Tags ===== */
-.tags-wrap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-.tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.6rem 1.25rem;
-  border-radius: 9999px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  cursor: default;
-}
-.tag:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); }
-.tag-green { background: #E0EEDD; color: #4A7048; }
-.tag-blue  { background: #D5E8F2; color: #3A7A99; }
-.tag-yellow{ background: #FBEFC9; color: #8A6D1A; }
-.tag-orange{ background: #F5DCC8; color: #8A4A2A; }
-.tag-purple{ background: #E8DDEE; color: #6A4A7A; }
-.tag-emoji { font-size: 1.15rem; }
-
-/* ===== Nature Grid (Compact) ===== */
-.nature-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-}
-.nature-card {
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 1.25rem 1rem;
-  text-align: center;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-1);
-  transition: all 0.3s ease;
-}
-.nature-card:hover {
-  box-shadow: var(--shadow-2);
-  transform: translateY(-3px);
-  border-color: var(--primary-light);
-}
-.nature-icon {
-  font-size: 1.75rem;
-  margin-bottom: 0.5rem;
-}
-.nature-card h3 {
-  font-size: 0.95rem;
-  font-weight: 700;
-  margin-bottom: 0.35rem;
-  color: var(--fg);
-}
-.nature-card p {
-  font-size: 0.78rem;
-  color: var(--muted-fg);
-  line-height: 1.55;
-}
-
-/* ===== Timeline ===== */
-.timeline {
+  padding: 0.7rem 1.4rem;
+  border-radius: 12px;
+  font-family: var(--font-display);
+  font-size: 1rem;
   position: relative;
-  max-width: 1000px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: default;
+  box-shadow: 0 4px 12px rgba(58, 46, 36, 0.1);
+  border: 2px solid rgba(255,255,255,0.5);
+}
+.sticker:hover {
+  transform: translateY(-4px) rotate(-2deg) scale(1.05);
+  box-shadow: 0 12px 24px rgba(58, 46, 36, 0.15);
+}
+.sticker .emoji { font-size: 1.3rem; }
+.sticker-sage { background: linear-gradient(135deg, #D8E8D0 0%, #B8D4A8 100%); color: #4A6B40; }
+.sticker-sky { background: linear-gradient(135deg, #CFE2ED 0%, #A3CADD 100%); color: #3A6B85; }
+.sticker-sun { background: linear-gradient(135deg, #F5E3B0 0%, #E8C547 100%); color: #7A5A10; }
+.sticker-coral { background: linear-gradient(135deg, #F5C6BC 0%, #E89A88 100%); color: #8A3A2A; }
+.sticker-lavender { background: linear-gradient(135deg, #DDD4EC 0%, #B8A8D4 100%); color: #5A4A7A; }
+.sticker:nth-child(odd) { transform: rotate(-2deg); }
+.sticker:nth-child(even) { transform: rotate(2deg); }
+.sticker:nth-child(3n) { transform: rotate(-1deg); }
+.sticker:nth-child(odd):hover { transform: translateY(-4px) rotate(-4deg) scale(1.05); }
+.sticker:nth-child(even):hover { transform: translateY(-4px) rotate(4deg) scale(1.05); }
+
+/* ===== Nature Polaroids ===== */
+.nature-section {
+  background: var(--paper-light);
+  padding: 5rem 1.5rem;
+  border-top: 1px dashed var(--paper-dark);
+  border-bottom: 1px dashed var(--paper-dark);
+}
+.nature-inner {
+  max-width: 1100px;
   margin: 0 auto;
 }
-.timeline-line {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: linear-gradient(to bottom, var(--primary-light), var(--border), var(--summer-green));
-  transform: translateX(-50%);
-  border-radius: 3px;
-}
-.tl-item {
+.nature-polaroids {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr;
-  margin-bottom: 3rem;
 }
-.tl-item:nth-child(even) .tl-content { grid-column: 2; padding-left: 3rem; }
-.tl-item:nth-child(odd)  .tl-content { grid-column: 1; padding-right: 3rem; text-align: right; }
-.tl-item:nth-child(odd)  .tl-spacer { grid-column: 2; }
-.tl-item:nth-child(even) .tl-spacer { grid-column: 1; }
-
-.tl-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: start;
+.nature-polaroid {
+  background: white;
+  padding: 10px 10px 44px 10px;
+  box-shadow: var(--shadow-card);
+  border-radius: 2px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: default;
 }
-.tl-dot {
-  position: absolute;
-  left: 50%;
-  top: 1.5rem;
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 50%;
-  background: var(--primary);
-  border: 4px solid var(--bg);
-  transform: translateX(-50%);
-  z-index: 2;
-  box-shadow: 0 0 0 3px var(--primary-light);
+.nature-polaroid:nth-child(1) { transform: rotate(-3deg); }
+.nature-polaroid:nth-child(2) { transform: rotate(2.5deg); margin-top: 1rem; }
+.nature-polaroid:nth-child(3) { transform: rotate(-2deg); margin-top: -0.5rem; }
+.nature-polaroid:nth-child(4) { transform: rotate(3deg); margin-top: 1.5rem; }
+.nature-polaroid:hover {
+  transform: rotate(0deg) scale(1.05) translateY(-8px);
+  box-shadow: var(--shadow-lift);
+  z-index: 5;
 }
-.tl-date {
-  display: inline-block;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--primary);
-  background: var(--muted);
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  margin-bottom: 0.75rem;
-}
-.tl-card {
-  background: var(--card);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
+.nature-polaroid .photo-area {
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, #F0E8D8 0%, #E8DCC8 100%);
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow-1);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
-.tl-card:hover {
-  box-shadow: var(--shadow-2);
-  transform: translateY(-4px);
+.nature-polaroid .photo-area::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3), transparent 60%);
 }
-.tl-card-body {
-  padding: 1.25rem 1.5rem;
+.nature-polaroid .caption {
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  text-align: center;
 }
-.tl-card-body h3 {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--fg);
-  margin-bottom: 0.5rem;
+.nature-polaroid .caption h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--ink);
+  margin-bottom: 2px;
 }
-.tl-card-body p {
-  font-size: 0.9rem;
-  color: var(--muted-fg);
-  line-height: 1.7;
+.nature-polaroid .caption p {
+  font-family: var(--font-hand);
+  font-size: 0.8rem;
+  color: var(--ink-faint);
 }
-.tl-photos {
+/* Washi tape on top */
+.nature-polaroid .tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-4deg);
+  width: 60px;
+  height: 24px;
+  opacity: 0.7;
+  z-index: 3;
+}
+.nature-polaroid:nth-child(1) .tape { background: var(--tape-green); transform: translateX(-50%) rotate(-4deg); }
+.nature-polaroid:nth-child(2) .tape { background: var(--tape-yellow); transform: translateX(-50%) rotate(3deg); }
+.nature-polaroid:nth-child(3) .tape { background: var(--tape-pink); transform: translateX(-50%) rotate(-2deg); }
+.nature-polaroid:nth-child(4) .tape { background: var(--tape-blue); transform: translateX(-50%) rotate(5deg); }
+
+/* ===== Timeline / Journal ===== */
+.journal-section {
+  padding: 5rem 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.journal-entry {
+  position: relative;
+  margin-bottom: 4rem;
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+.journal-entry:nth-child(even) {
+  flex-direction: row-reverse;
+}
+.journal-photo-side {
+  flex: 0 0 45%;
+  position: relative;
+}
+.journal-polaroid {
+  background: white;
+  padding: 12px 12px 52px 12px;
+  box-shadow: var(--shadow-card);
+  border-radius: 2px;
+  position: relative;
+  transition: all 0.4s ease;
+}
+.journal-polaroid:hover {
+  transform: scale(1.03);
+  box-shadow: var(--shadow-lift);
+}
+.journal-polaroid img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 1px;
+  cursor: pointer;
+}
+.journal-polaroid .photo-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2px;
 }
-.tl-photos.single { grid-template-columns: 1fr; }
-.tl-photos img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  aspect-ratio: 4/3;
-  cursor: pointer;
-  transition: transform 0.3s ease;
+.journal-polaroid .photo-grid img {
+  aspect-ratio: 1;
 }
-.tl-photos img:hover { transform: scale(1.03); }
+.journal-polaroid .caption {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  color: var(--ink-faint);
+}
+.journal-polaroid .tape {
+  position: absolute;
+  top: -12px;
+  width: 70px;
+  height: 26px;
+  opacity: 0.7;
+  z-index: 3;
+}
+.journal-entry:nth-child(odd) .journal-polaroid .tape {
+  left: 20%;
+  transform: rotate(-5deg);
+  background: var(--tape-yellow);
+}
+.journal-entry:nth-child(even) .journal-polaroid .tape {
+  right: 20%;
+  transform: rotate(5deg);
+  background: var(--tape-pink);
+}
+.journal-text-side {
+  flex: 1;
+  padding-top: 1rem;
+}
+.journal-date {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  background: var(--paper-light);
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  transform: rotate(-1deg);
+}
+.journal-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--ink);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+.journal-body {
+  font-size: 0.95rem;
+  color: var(--ink-light);
+  line-height: 2;
+}
+/* Decorative dots */
+.journal-dots {
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  z-index: 0;
+}
+.journal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-light);
+  border: 3px solid var(--paper);
+  box-shadow: 0 0 0 2px var(--accent-light);
+}
 
-/* ===== 3D Flip Card Carousel ===== */
+/* ===== Flip Carousel - Polaroid Style ===== */
 .carousel-section {
-  background: var(--bg-warm);
-  padding: 4rem 1.5rem;
+  background: var(--paper-light);
+  padding: 5rem 1.5rem;
+  border-top: 1px dashed var(--paper-dark);
+  border-bottom: 1px dashed var(--paper-dark);
   overflow: hidden;
 }
-.carousel-inner-wrap {
-  max-width: 1000px;
+.carousel-inner {
+  max-width: 800px;
   margin: 0 auto;
 }
 .flip-stage {
   position: relative;
-  perspective: 1800px;
-  height: 520px;
+  perspective: 2000px;
+  height: 560px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -357,139 +568,226 @@ body {
 .flip-card {
   position: relative;
   width: 100%;
-  max-width: 720px;
+  max-width: 480px;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+  transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
 }
 .flip-face {
   position: absolute;
   inset: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-2);
-  background: var(--card);
-  border: 1px solid var(--border);
+  background: white;
+  padding: 16px 16px 64px 16px;
+  box-shadow: var(--shadow-lift);
+  border-radius: 2px;
   display: flex;
   flex-direction: column;
 }
 .flip-face.back {
   transform: rotateY(180deg);
 }
-.flip-photo-wrap {
+.flip-photo-area {
   flex: 1;
   overflow: hidden;
+  border-radius: 1px;
+  background: #F0E8D8;
 }
-.flip-photo-wrap img {
+.flip-photo-area img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   cursor: pointer;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s ease;
 }
-.flip-photo-wrap img:hover { transform: scale(1.05); }
-.flip-caption {
-  padding: 1rem 1.5rem 1.25rem;
-  background: var(--card);
-  border-top: 1px solid var(--border);
+.flip-photo-area img:hover { transform: scale(1.04); }
+.flip-caption-area {
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  right: 0;
   text-align: center;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--fg);
 }
-.flip-caption .date {
-  font-size: 0.78rem;
-  color: var(--primary);
-  font-weight: 600;
-  margin-right: 0.5rem;
+.flip-caption-area .date {
+  font-family: var(--font-hand);
+  font-size: 0.9rem;
+  color: var(--ink-faint);
+  margin-bottom: 2px;
+}
+.flip-caption-area .title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--ink);
+}
+/* Washi tape on flip card */
+.flip-face::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 80px;
+  height: 28px;
+  background: var(--tape-yellow);
+  opacity: 0.75;
+  z-index: 5;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+.flip-face.back::before {
+  background: var(--tape-pink);
+  transform: translateX(-50%) rotate(3deg);
 }
 .flip-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  background: var(--card);
-  border: 1px solid var(--border);
+  background: white;
+  border: none;
   font-size: 1.5rem;
-  color: var(--primary);
+  color: var(--accent);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   z-index: 10;
-  box-shadow: var(--shadow-1);
+  box-shadow: var(--shadow-card);
+  font-family: var(--font-display);
 }
 .flip-btn:hover {
-  background: var(--primary);
+  background: var(--accent);
   color: white;
-  border-color: var(--primary);
-  transform: translateY(-50%) scale(1.1);
-  box-shadow: var(--shadow-2);
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: var(--shadow-lift);
 }
-.flip-btn.prev { left: 1rem; }
-.flip-btn.next { right: 1rem; }
-.flip-dots {
+.flip-btn.prev { left: 0.5rem; }
+.flip-btn.next { right: 0.5rem; }
+.flip-controls {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   gap: 0.5rem;
   margin-top: 1.5rem;
 }
+.flip-dots {
+  display: flex;
+  gap: 0.5rem;
+}
 .flip-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: var(--border);
+  background: var(--paper-dark);
   cursor: pointer;
   transition: all 0.3s ease;
   border: none;
 }
 .flip-dot.active {
-  background: var(--primary);
-  width: 24px;
+  background: var(--accent);
+  width: 28px;
   border-radius: 9999px;
 }
 .flip-counter {
-  text-align: center;
-  font-size: 0.85rem;
-  color: var(--muted-fg);
-  margin-top: 0.75rem;
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--ink-faint);
 }
-.flip-counter b { color: var(--primary); }
+.flip-counter b {
+  color: var(--accent);
+  font-size: 1.2rem;
+}
 
-/* ===== Summary ===== */
-.summary-card {
-  background: linear-gradient(135deg, var(--card) 0%, var(--bg-warm) 100%);
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  padding: 3rem 2.5rem;
-  max-width: 800px;
+/* ===== Summary / Letter ===== */
+.letter-section {
+  padding: 5rem 1.5rem;
+  max-width: 720px;
   margin: 0 auto;
-  box-shadow: var(--shadow-2);
-  text-align: center;
 }
-.summary-card .quote-mark {
-  font-size: 3rem;
-  color: var(--primary-light);
-  line-height: 1;
-  margin-bottom: 1rem;
+.letter-card {
+  background: var(--paper-light);
+  border-radius: 4px;
+  padding: 3.5rem 3rem;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  border: 1px solid var(--paper-dark);
 }
-.summary-card p {
-  font-size: 1.15rem;
-  color: var(--fg);
-  line-height: 2;
+.letter-card::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  border: 1px dashed var(--paper-dark);
+  border-radius: 2px;
+  pointer-events: none;
+}
+.letter-card .greeting {
+  font-family: var(--font-hand);
+  font-size: 2rem;
+  color: var(--accent);
   margin-bottom: 1.5rem;
+  transform: rotate(-1deg);
+  display: inline-block;
 }
-.summary-card .signoff {
-  font-size: 0.875rem;
-  color: var(--muted-fg);
-  margin-top: 2rem;
+.letter-card p {
+  font-size: 1rem;
+  color: var(--ink);
+  line-height: 2.2;
+  margin-bottom: 1.25rem;
+  text-indent: 2em;
+}
+.letter-card p.highlight {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--ink-light);
+  text-indent: 0;
+  text-align: center;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(232, 181, 71, 0.1);
+  border-radius: 8px;
+  line-height: 2;
+}
+.letter-signoff {
+  text-align: right;
+  margin-top: 2.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--border);
+  border-top: 1px dashed var(--paper-dark);
+}
+.letter-signoff .signature {
+  font-family: var(--font-hand);
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+.letter-signoff .date {
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--ink-faint);
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: var(--paper-dark);
+  border-top: 2px dashed var(--paper);
+}
+.footer p {
+  font-family: var(--font-hand);
+  font-size: 1.1rem;
+  color: var(--ink-light);
+  margin-bottom: 0.5rem;
+}
+.footer .small {
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+  font-family: var(--font-body);
 }
 
 /* ===== Lightbox ===== */
@@ -497,8 +795,8 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.9);
-  z-index: 100;
+  background: rgba(30, 20, 10, 0.92);
+  z-index: 1000;
   justify-content: center;
   align-items: center;
   cursor: zoom-out;
@@ -506,357 +804,397 @@ body {
 }
 .lightbox.active { display: flex; }
 .lightbox img {
-  max-width: 90vw;
-  max-height: 90vh;
-  border-radius: var(--radius-sm);
+  max-width: 92vw;
+  max-height: 88vh;
   object-fit: contain;
+  background: white;
+  padding: 12px;
+  border-radius: 2px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
 }
 .lightbox-close {
   position: absolute;
   top: 1.5rem;
   right: 2rem;
   color: white;
-  font-size: 2rem;
+  font-size: 2.5rem;
   cursor: pointer;
   background: none;
   border: none;
   line-height: 1;
+  font-family: var(--font-display);
+  opacity: 0.7;
+  transition: opacity 0.2s;
 }
-
-/* ===== Footer ===== */
-.footer {
-  text-align: center;
-  padding: 3rem 1.5rem;
-  background: var(--muted);
-  border-top: 1px solid var(--border);
-}
-.footer p {
-  font-size: 0.85rem;
-  color: var(--muted-fg);
-}
+.lightbox-close:hover { opacity: 1; }
 
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
-  .nature-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
-  }
-  .nature-card { padding: 1rem 0.75rem; }
-  .nature-icon { font-size: 1.5rem; }
-  .nature-card h3 { font-size: 0.85rem; }
-  .nature-card p { font-size: 0.72rem; }
+  .hero-scrapbook { aspect-ratio: 3/4; max-height: 80vh; }
+  .hero-main-polaroid { width: 60%; padding: 10px 10px 44px 10px; }
+  .hero-main-polaroid .caption { font-size: 1.1rem; bottom: 10px; }
+  .hero-float { width: 32%; padding: 6px 6px 30px 6px; }
+  .hero-float .caption { font-size: 0.75rem; }
 
-  .tl-grid { grid-template-columns: 1fr; }
-  .timeline-line { left: 1.25rem; }
-  .tl-dot { left: 1.25rem; }
-  .tl-item:nth-child(even) .tl-content,
-  .tl-item:nth-child(odd) .tl-content {
-    grid-column: 1;
-    padding-left: 3rem;
-    padding-right: 0;
-    text-align: left;
+  .section { padding: 3.5rem 1rem; }
+  .nature-section { padding: 3.5rem 1rem; }
+  .carousel-section { padding: 3.5rem 1rem; }
+  .letter-section { padding: 3.5rem 1rem; }
+
+  .nature-polaroids {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
   }
-  .tl-item:nth-child(even) .tl-spacer,
-  .tl-item:nth-child(odd) .tl-spacer { display: none; }
-  .section { padding: 3rem 1rem; }
-  .section-alt { padding: 3rem 1rem; }
-  .carousel-section { padding: 2.5rem 1rem; }
-  .summary-card { padding: 2rem 1.5rem; }
-  .flip-stage { height: 380px; }
-  .flip-btn { width: 36px; height: 36px; font-size: 1.1rem; }
+  .nature-polaroid:nth-child(2) { margin-top: 0; }
+  .nature-polaroid:nth-child(4) { margin-top: 0; }
+  .nature-polaroid .photo-area { font-size: 2.5rem; }
+
+  .journal-entry {
+    flex-direction: column !important;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .journal-photo-side { flex: none; width: 80%; margin: 0 auto; }
+  .journal-dots { display: none; }
+  .journal-text-side { padding-top: 0; text-align: center; }
+  .journal-body { text-align: left; }
+
+  .flip-stage { height: 440px; }
+  .flip-card { max-width: 340px; }
+  .flip-btn { width: 42px; height: 42px; font-size: 1.2rem; }
   .flip-btn.prev { left: 0.25rem; }
   .flip-btn.next { right: 0.25rem; }
+
+  .letter-card { padding: 2rem 1.5rem; }
+  .letter-card .greeting { font-size: 1.5rem; }
+  .letter-card p { font-size: 0.95rem; line-height: 2; }
+  .letter-card p.highlight { font-size: 0.95rem; padding: 1rem; }
+
+  .stickers-wrap { gap: 0.75rem; }
+  .sticker { padding: 0.55rem 1.1rem; font-size: 0.9rem; }
+}
+
+@media (max-width: 480px) {
+  .hero-scrapbook { aspect-ratio: 2/3; }
+  .hero-title { font-size: 2rem; }
+  .hero-float { display: none; }
+  .hero-main-polaroid { width: 75%; }
+  .flip-stage { height: 380px; }
+  .flip-card { max-width: 280px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ===== Hero ===== -->
+<!-- ===== Hero / Scrapbook Cover ===== -->
 <header class="hero">
-  <div class="sun"></div>
-  <div class="cloud cloud-1"></div>
-  <div class="cloud cloud-2"></div>
-  <div class="cloud cloud-3"></div>
-  <div class="hero-content">
-    <div class="hero-tag">
-      <span>☀️</span>
-      <span>2026年7月 — 8月 · 暑假记录</span>
+  <div class="hero-bg"></div>
+  <div class="hero-sun"></div>
+  
+  <div class="hero-scrapbook">
+    <!-- Floating polaroids -->
+    <div class="hero-float hero-float-1">
+      <img src="photos/20260721_rainbow.jpg" alt="彩虹">
+      <div class="caption">7.21 彩虹</div>
     </div>
-    <h1>达哥的<span class="accent">快乐暑假</span></h1>
-    <p class="subtitle">
-      走进大自然，亲近大自然，拥抱大自然，探索大自然。<br>
-      这个夏天，达哥用双脚丈量田野，用双手触摸生命，用笑声填满河流。
-    </p>
-    <div class="meta">
-      <span>记录人：达哥的家人</span>
-      <span>·</span>
-      <span>达哥 5岁1个月</span>
+    <div class="hero-float hero-float-2">
+      <img src="photos/20260808_grapes.jpg" alt="葡萄">
+      <div class="caption">8.8 葡萄</div>
+    </div>
+    <div class="hero-float hero-float-3">
+      <img src="photos/20260815_duckling_2.jpg" alt="小鸭子">
+      <div class="caption">8.15 小鸭</div>
+    </div>
+    <div class="hero-float hero-float-4">
+      <img src="photos/20260819_swim_2.jpg" alt="游泳">
+      <div class="caption">8.19 游泳</div>
+    </div>
+    
+    <!-- Main polaroid -->
+    <div class="hero-main-polaroid">
+      <img src="photos/20260810_peanuts.jpg" alt="达哥拔花生">
+      <div class="caption">达哥的夏天</div>
+    </div>
+
+    <!-- Title overlay -->
+    <div class="hero-title-wrap">
+      <div class="hero-date-tag">✿ 2026年 盛夏 ✿</div>
+      <h1 class="hero-title">达哥的<span class="accent">快乐暑假</span></h1>
+      <p class="hero-subtitle">
+        走进大自然 · 亲近大自然<br>
+        拥抱大自然 · 探索大自然
+      </p>
+      <div class="hero-meta">
+        5岁1个月 · 用爱收藏每一天
+      </div>
     </div>
   </div>
 </header>
 
-<!-- ===== Activity Overview ===== -->
+<!-- ===== Activity Stickers ===== -->
 <section class="section">
-  <div style="text-align:center; margin-bottom: 2rem;">
-    <div class="section-label">🌟 暑假清单</div>
+  <div class="section-header">
+    <div class="section-tag">★ 暑假清单 ★</div>
     <h2 class="section-title">这个夏天，达哥做了这些事</h2>
-    <p class="section-desc" style="margin-left:auto; margin-right:auto;">
+    <p class="section-desc">
       从田间地头到清澈溪流，每一个"第一次"都是成长路上闪亮的星星。
     </p>
   </div>
-  <div class="tags-wrap">
-    <span class="tag tag-green"><span class="tag-emoji">🍉</span> 摘西瓜</span>
-    <span class="tag tag-purple"><span class="tag-emoji">🍇</span> 摘葡萄</span>
-    <span class="tag tag-orange"><span class="tag-emoji">🥜</span> 拔花生</span>
-    <span class="tag tag-yellow"><span class="tag-emoji">🐛</span> 抓蚯蚓</span>
-    <span class="tag tag-green"><span class="tag-emoji">🦗</span> 摸知了</span>
-    <span class="tag tag-yellow"><span class="tag-emoji">🐤</span> 摸小鸭子</span>
-    <span class="tag tag-blue"><span class="tag-emoji">🐟</span> 摸鱼</span>
-    <span class="tag tag-orange"><span class="tag-emoji">🐕</span> 摸狗</span>
-    <span class="tag tag-yellow"><span class="tag-emoji">🐱</span> 喂猫</span>
-    <span class="tag tag-blue"><span class="tag-emoji">🏊</span> 河里游泳</span>
+  <div class="stickers-wrap">
+    <span class="sticker sticker-sage"><span class="emoji">🍉</span> 摘西瓜</span>
+    <span class="sticker sticker-lavender"><span class="emoji">🍇</span> 摘葡萄</span>
+    <span class="sticker sticker-coral"><span class="emoji">🥜</span> 拔花生</span>
+    <span class="sticker sticker-sun"><span class="emoji">🐛</span> 抓蚯蚓</span>
+    <span class="sticker sticker-sage"><span class="emoji">🦗</span> 摸知了</span>
+    <span class="sticker sticker-sun"><span class="emoji">🐤</span> 摸小鸭子</span>
+    <span class="sticker sticker-sky"><span class="emoji">🐟</span> 摸鱼</span>
+    <span class="sticker sticker-coral"><span class="emoji">🐕</span> 摸狗</span>
+    <span class="sticker sticker-sun"><span class="emoji">🐱</span> 喂猫</span>
+    <span class="sticker sticker-sky"><span class="emoji">🏊</span> 河里游泳</span>
   </div>
 </section>
 
-<!-- ===== Nature Exploration (Compact) ===== -->
-<section class="section-alt" style="padding: 3rem 1.5rem;">
-  <div class="section-alt-inner">
-    <div style="text-align:center; margin-bottom: 1.5rem;">
-      <div class="section-label">🌿 自然探索</div>
-      <h2 class="section-title" style="font-size: clamp(1.35rem, 3.5vw, 1.75rem);">走进大自然，探索大自然</h2>
+<!-- ===== Nature Polaroids ===== -->
+<section class="nature-section">
+  <div class="nature-inner">
+    <div class="section-header">
+      <div class="section-tag">♡ 自然探索 ♡</div>
+      <h2 class="section-title">走进大自然，探索大自然</h2>
+      <p class="section-desc">
+        大自然是最好的课堂，泥土的味道、河水的清凉、小动物的温度——
+        这些是书本给不了的触感。
+      </p>
     </div>
-    <div class="nature-grid">
-      <div class="nature-card">
-        <div class="nature-icon">🌾</div>
-        <h3>田间地头</h3>
-        <p>摘西瓜、摘葡萄、拔花生，亲手从土地里收获果实。</p>
+    <div class="nature-polaroids">
+      <div class="nature-polaroid">
+        <div class="tape"></div>
+        <div class="photo-area">🌾</div>
+        <div class="caption">
+          <h3>田间地头</h3>
+          <p>收获的喜悦</p>
+        </div>
       </div>
-      <div class="nature-card">
-        <div class="nature-icon">🐜</div>
-        <h3>虫子与泥土</h3>
-        <p>摸知了、抓蚯蚓，蹲在地上观察小生命，好奇心满满。</p>
+      <div class="nature-polaroid">
+        <div class="tape"></div>
+        <div class="photo-area">🐜</div>
+        <div class="caption">
+          <h3>虫子与泥土</h3>
+          <p>好奇心满满</p>
+        </div>
       </div>
-      <div class="nature-card">
-        <div class="nature-icon">🐾</div>
-        <h3>动物朋友</h3>
-        <p>摸过鸭子、鱼、狗，喂过猫，温柔对待每一个小生命。</p>
+      <div class="nature-polaroid">
+        <div class="tape"></div>
+        <div class="photo-area">🐾</div>
+        <div class="caption">
+          <h3>动物朋友</h3>
+          <p>温柔的相遇</p>
+        </div>
       </div>
-      <div class="nature-card">
-        <div class="nature-icon">🌊</div>
-        <h3>清澈河流</h3>
-        <p>在清澈见底的河流里游泳，踩着鹅卵石，笑声飞溅。</p>
+      <div class="nature-polaroid">
+        <div class="tape"></div>
+        <div class="photo-area">🌊</div>
+        <div class="caption">
+          <h3>清澈河流</h3>
+          <p>夏天的笑声</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== Timeline ===== -->
-<section class="section">
-  <div style="text-align:center; margin-bottom: 3rem;">
-    <div class="section-label">📷 时光线</div>
+<!-- ===== Journal / Timeline ===== -->
+<section class="journal-section">
+  <div class="section-header">
+    <div class="section-tag">✎ 夏日日记 ✎</div>
     <h2 class="section-title">暑假里的高光时刻</h2>
-    <p class="section-desc" style="margin-left:auto; margin-right:auto;">
-      按时间顺序，把那些闪闪发光的日子串起来。
+    <p class="section-desc">
+      按时间顺序，把那些闪闪发光的日子串成一串项链。
     </p>
   </div>
 
-  <div class="timeline">
-    <div class="timeline-line"></div>
-
-    <!-- 07/21 彩虹 -->
-    <div class="tl-item">
-      <div class="tl-grid">
-        <div class="tl-content">
-          <div class="tl-dot"></div>
-          <span class="tl-date">7月21日</span>
-          <div class="tl-card">
-            <div class="tl-photos single">
-              <img src="photos/20260721_rainbow.jpg" alt="达哥在雨后的路上看到彩虹" onclick="openLightbox(this)">
-            </div>
-            <div class="tl-card-body">
-              <h3>看见彩虹 🌈</h3>
-              <p>夏天的阵雨刚过，天空挂起一道彩虹。达哥站在湿漉漉的路上，笑得比彩虹还灿烂——大自然送的礼物，他全都收下了。</p>
-            </div>
-          </div>
-        </div>
-        <div class="tl-spacer"></div>
+  <!-- Entry 1 -->
+  <div class="journal-entry">
+    <div class="journal-photo-side">
+      <div class="journal-polaroid">
+        <div class="tape"></div>
+        <img src="photos/20260721_rainbow.jpg" alt="达哥在雨后的路上看到彩虹" onclick="openLightbox(this)">
+        <div class="caption">雨后的彩虹</div>
       </div>
     </div>
+    <div class="journal-text-side">
+      <span class="journal-date">7月21日</span>
+      <h3 class="journal-title">看见彩虹 🌈</h3>
+      <p class="journal-body">
+        夏天的阵雨刚过，天空挂起一道彩虹。达哥站在湿漉漉的路上，笑得比彩虹还灿烂——大自然送的礼物，他全都收下了。
+      </p>
+    </div>
+  </div>
 
-    <!-- 07/24 看知了 -->
-    <div class="tl-item">
-      <div class="tl-grid">
-        <div class="tl-spacer"></div>
-        <div class="tl-content">
-          <div class="tl-dot"></div>
-          <span class="tl-date">7月24日</span>
-          <div class="tl-card">
-            <div class="tl-photos single">
-              <img src="photos/20260724_cicada.jpg" alt="达哥认真观察树枝上的知了" onclick="openLightbox(this)">
-            </div>
-            <div class="tl-card-body">
-              <h3>和知了面对面 🦗</h3>
-              <p>一只知了停在枯枝上，达哥侧着头，屏住呼吸，眼睛一眨不眨地盯着它看。透明的翅膀、硬硬的壳——夏天的声音，原来长这个样子。</p>
-            </div>
-          </div>
-        </div>
+  <!-- Entry 2 -->
+  <div class="journal-entry">
+    <div class="journal-photo-side">
+      <div class="journal-polaroid">
+        <div class="tape"></div>
+        <img src="photos/20260724_cicada.jpg" alt="达哥认真观察树枝上的知了" onclick="openLightbox(this)">
+        <div class="caption">和知了面对面</div>
       </div>
     </div>
+    <div class="journal-text-side">
+      <span class="journal-date">7月24日</span>
+      <h3 class="journal-title">和知了面对面 🦗</h3>
+      <p class="journal-body">
+        一只知了停在枯枝上，达哥侧着头，屏住呼吸，眼睛一眨不眨地盯着它看。透明的翅膀、硬硬的壳——夏天的声音，原来长这个样子。
+      </p>
+    </div>
+  </div>
 
-    <!-- 08/08 摘葡萄 -->
-    <div class="tl-item">
-      <div class="tl-grid">
-        <div class="tl-content">
-          <div class="tl-dot"></div>
-          <span class="tl-date">8月8日</span>
-          <div class="tl-card">
-            <div class="tl-photos single">
-              <img src="photos/20260808_grapes.jpg" alt="达哥在葡萄园里摘葡萄" onclick="openLightbox(this)">
-            </div>
-            <div class="tl-card-body">
-              <h3>葡萄园里的小帮手 🍇</h3>
-              <p>提着小篮子走在葡萄架下，紫红色的葡萄一串串垂下来，达哥踮起脚尖去够。阳光透过叶子洒在脸上，篮子越来越沉，笑容越来越甜。</p>
-            </div>
-          </div>
-        </div>
-        <div class="tl-spacer"></div>
+  <!-- Entry 3 -->
+  <div class="journal-entry">
+    <div class="journal-photo-side">
+      <div class="journal-polaroid">
+        <div class="tape"></div>
+        <img src="photos/20260808_grapes.jpg" alt="达哥在葡萄园里摘葡萄" onclick="openLightbox(this)">
+        <div class="caption">葡萄园小帮手</div>
       </div>
     </div>
+    <div class="journal-text-side">
+      <span class="journal-date">8月8日</span>
+      <h3 class="journal-title">葡萄园里的小帮手 🍇</h3>
+      <p class="journal-body">
+        提着小篮子走在葡萄架下，紫红色的葡萄一串串垂下来，达哥踮起脚尖去够。阳光透过叶子洒在脸上，篮子越来越沉，笑容越来越甜。
+      </p>
+    </div>
+  </div>
 
-    <!-- 08/10 抓蚯蚓 -->
-    <div class="tl-item">
-      <div class="tl-grid">
-        <div class="tl-spacer"></div>
-        <div class="tl-content">
-          <div class="tl-dot"></div>
-          <span class="tl-date">8月10日</span>
-          <div class="tl-card">
-            <div class="tl-photos single">
-              <img src="photos/20260810_earthworm.jpg" alt="达哥蹲在地上抓蚯蚓" onclick="openLightbox(this)">
-            </div>
-            <div class="tl-card-body">
-              <h3>泥土里发现蚯蚓 🐛</h3>
-              <p>蹲在泥地里，小心翼翼地把蚯蚓捏在指尖仔细端详。软软的、滑滑的，在手上慢慢蠕动——达哥不怕脏也不怕虫，只想弄清楚这个扭来扭去的小东西到底是什么。</p>
-            </div>
-          </div>
-        </div>
+  <!-- Entry 4 -->
+  <div class="journal-entry">
+    <div class="journal-photo-side">
+      <div class="journal-polaroid">
+        <div class="tape"></div>
+        <img src="photos/20260810_earthworm.jpg" alt="达哥蹲在地上抓蚯蚓" onclick="openLightbox(this)">
+        <div class="caption">泥土里的发现</div>
       </div>
     </div>
+    <div class="journal-text-side">
+      <span class="journal-date">8月10日</span>
+      <h3 class="journal-title">泥土里发现蚯蚓 🐛</h3>
+      <p class="journal-body">
+        蹲在泥地里，小心翼翼地把蚯蚓捏在指尖仔细端详。软软的、滑滑的，在手上慢慢蠕动——达哥不怕脏也不怕虫，只想弄清楚这个扭来扭去的小东西到底是什么。
+      </p>
+    </div>
+  </div>
 
-    <!-- 08/10 拔花生 -->
-    <div class="tl-item">
-      <div class="tl-grid">
-        <div class="tl-content">
-          <div class="tl-dot"></div>
-          <span class="tl-date">8月10日</span>
-          <div class="tl-card">
-            <div class="tl-photos single">
-              <img src="photos/20260810_peanuts.jpg" alt="达哥在田里拔花生" onclick="openLightbox(this)">
-            </div>
-            <div class="tl-card-body">
-              <h3>第一次拔花生 🥜</h3>
-              <p>蹲在田埂上，手握粉色小剪刀，把花生一颗一颗从根上摘下来。泥巴沾了满手，脸上却笑开了花——原来花生是长在土里的！</p>
-            </div>
-          </div>
-        </div>
-        <div class="tl-spacer"></div>
+  <!-- Entry 5 -->
+  <div class="journal-entry">
+    <div class="journal-photo-side">
+      <div class="journal-polaroid">
+        <div class="tape"></div>
+        <img src="photos/20260810_peanuts.jpg" alt="达哥在田里拔花生" onclick="openLightbox(this)">
+        <div class="caption">第一次拔花生</div>
       </div>
     </div>
+    <div class="journal-text-side">
+      <span class="journal-date">8月10日</span>
+      <h3 class="journal-title">第一次拔花生 🥜</h3>
+      <p class="journal-body">
+        蹲在田埂上，手握粉色小剪刀，把花生一颗一颗从根上摘下来。泥巴沾了满手，脸上却笑开了花——原来花生是长在土里的！
+      </p>
+    </div>
+  </div>
 
-    <!-- 08/15 小鸭子 -->
-    <div class="tl-item">
-      <div class="tl-grid">
-        <div class="tl-spacer"></div>
-        <div class="tl-content">
-          <div class="tl-dot"></div>
-          <span class="tl-date">8月15日</span>
-          <div class="tl-card">
-            <div class="tl-photos">
-              <img src="photos/20260815_duckling_1.jpg" alt="达哥蹲着看纸箱上的小鸭子" onclick="openLightbox(this)">
-              <img src="photos/20260815_duckling_2.jpg" alt="达哥手里捧着小鸭子" onclick="openLightbox(this)">
-            </div>
-            <div class="tl-card-body">
-              <h3>遇见小鸭子 🐤</h3>
-              <p>毛茸茸的小鸭子站在纸箱上，达哥小心翼翼地蹲下来看它，又轻轻把它捧在手心。第一次这么近地感受一个小生命在手心里的温度，眼睛里全是新奇和温柔。</p>
-            </div>
-          </div>
+  <!-- Entry 6 -->
+  <div class="journal-entry">
+    <div class="journal-photo-side">
+      <div class="journal-polaroid">
+        <div class="tape"></div>
+        <div class="photo-grid">
+          <img src="photos/20260815_duckling_1.jpg" alt="达哥蹲着看纸箱上的小鸭子" onclick="openLightbox(this)">
+          <img src="photos/20260815_duckling_2.jpg" alt="达哥手里捧着小鸭子" onclick="openLightbox(this)">
         </div>
+        <div class="caption">遇见小鸭子</div>
       </div>
     </div>
+    <div class="journal-text-side">
+      <span class="journal-date">8月15日</span>
+      <h3 class="journal-title">遇见小鸭子 🐤</h3>
+      <p class="journal-body">
+        毛茸茸的小鸭子站在纸箱上，达哥小心翼翼地蹲下来看它，又轻轻把它捧在手心。第一次这么近地感受一个小生命在手心里的温度，眼睛里全是新奇和温柔。
+      </p>
+    </div>
+  </div>
 
-    <!-- 08/19 河里游泳 -->
-    <div class="tl-item">
-      <div class="tl-grid">
-        <div class="tl-content">
-          <div class="tl-dot"></div>
-          <span class="tl-date">8月19日</span>
-          <div class="tl-card">
-            <div class="tl-photos">
-              <img src="photos/20260819_swim_1.jpg" alt="达哥在清澈的河里游泳" onclick="openLightbox(this)">
-              <img src="photos/20260819_swim_2.jpg" alt="达哥举着红色铲子在河里玩水" onclick="openLightbox(this)">
-            </div>
-            <div class="tl-card-body">
-              <h3>清澈见底的河流 🏊</h3>
-              <p>套上蓝色游泳圈，穿上橙色小救生衣，踩进清得能看见河底石头的溪水里。举着红色大铲子高喊大叫，水花溅到脸上也不怕——这就是夏天该有的样子！</p>
-            </div>
-          </div>
+  <!-- Entry 7 -->
+  <div class="journal-entry">
+    <div class="journal-photo-side">
+      <div class="journal-polaroid">
+        <div class="tape"></div>
+        <div class="photo-grid">
+          <img src="photos/20260819_swim_1.jpg" alt="达哥在清澈的河里游泳" onclick="openLightbox(this)">
+          <img src="photos/20260819_swim_2.jpg" alt="达哥举着红色铲子在河里玩水" onclick="openLightbox(this)">
         </div>
-        <div class="tl-spacer"></div>
+        <div class="caption">清澈见底的河</div>
       </div>
     </div>
+    <div class="journal-text-side">
+      <span class="journal-date">8月19日</span>
+      <h3 class="journal-title">清澈见底的河流 🏊</h3>
+      <p class="journal-body">
+        套上蓝色游泳圈，穿上橙色小救生衣，踩进清得能看见河底石头的溪水里。举着红色大铲子高喊大叫，水花溅到脸上也不怕——这就是夏天该有的样子！
+      </p>
+    </div>
+  </div>
 
-    <!-- 08/20 玩水 -->
-    <div class="tl-item">
-      <div class="tl-grid">
-        <div class="tl-spacer"></div>
-        <div class="tl-content">
-          <div class="tl-dot"></div>
-          <span class="tl-date">8月20日</span>
-          <div class="tl-card">
-            <div class="tl-photos">
-              <img src="photos/20260820_water_1.jpg" alt="达哥蹲在金属盆前玩水" onclick="openLightbox(this)">
-              <img src="photos/20260820_water_2.jpg" alt="达哥用橙色小桶舀水" onclick="openLightbox(this)">
-            </div>
-            <div class="tl-card-body">
-              <h3>家门口的快乐玩水 💦</h3>
-              <p>不用去远方，一个大盆、一个橙色小桶，就能让达哥玩上半天。舀水、倒水、看水花，专注得连叫他吃饭都听不见。简单的快乐，才是最纯粹的。</p>
-            </div>
-          </div>
+  <!-- Entry 8 -->
+  <div class="journal-entry">
+    <div class="journal-photo-side">
+      <div class="journal-polaroid">
+        <div class="tape"></div>
+        <div class="photo-grid">
+          <img src="photos/20260820_water_1.jpg" alt="达哥蹲在金属盆前玩水" onclick="openLightbox(this)">
+          <img src="photos/20260820_water_2.jpg" alt="达哥用橙色小桶舀水" onclick="openLightbox(this)">
         </div>
+        <div class="caption">家门口的快乐</div>
       </div>
     </div>
+    <div class="journal-text-side">
+      <span class="journal-date">8月20日</span>
+      <h3 class="journal-title">家门口的快乐玩水 💦</h3>
+      <p class="journal-body">
+        不用去远方，一个大盆、一个橙色小桶，就能让达哥玩上半天。舀水、倒水、看水花，专注得连叫他吃饭都听不见。简单的快乐，才是最纯粹的。
+      </p>
+    </div>
+  </div>
 
-    <!-- 08/21 喂猫 -->
-    <div class="tl-item">
-      <div class="tl-grid">
-        <div class="tl-content">
-          <div class="tl-dot"></div>
-          <span class="tl-date">8月21日</span>
-          <div class="tl-card">
-            <div class="tl-photos">
-              <img src="photos/20260821_cat_1.jpg" alt="达哥蹲在地上喂猫" onclick="openLightbox(this)">
-              <img src="photos/20260821_cat_2.jpg" alt="达哥用红色小包喂猫" onclick="openLightbox(this)">
-            </div>
-            <div class="tl-card-body">
-              <h3>喂外婆家的猫 🐱</h3>
-              <p>蹲下来，把食物一点点递到外婆养的猫嘴边，动作又轻又慢，生怕吓到它。小猫吃得安心，达哥笑得满足——温柔不需要教，它本来就在达哥心里。</p>
-            </div>
-          </div>
+  <!-- Entry 9 -->
+  <div class="journal-entry">
+    <div class="journal-photo-side">
+      <div class="journal-polaroid">
+        <div class="tape"></div>
+        <div class="photo-grid">
+          <img src="photos/20260821_cat_1.jpg" alt="达哥蹲在地上喂猫" onclick="openLightbox(this)">
+          <img src="photos/20260821_cat_2.jpg" alt="达哥用红色小包喂猫" onclick="openLightbox(this)">
         </div>
-        <div class="tl-spacer"></div>
+        <div class="caption">喂外婆家的猫</div>
       </div>
+    </div>
+    <div class="journal-text-side">
+      <span class="journal-date">8月21日</span>
+      <h3 class="journal-title">喂外婆家的猫 🐱</h3>
+      <p class="journal-body">
+        蹲下来，把食物一点点递到外婆养的猫嘴边，动作又轻又慢，生怕吓到它。小猫吃得安心，达哥笑得满足——温柔不需要教，它本来就在达哥心里。
+      </p>
     </div>
   </div>
 </section>
 
-<!-- ===== Photo Carousel ===== -->
+<!-- ===== 3D Flip Polaroid Carousel ===== -->
 <section class="carousel-section">
-  <div class="carousel-inner-wrap">
-    <div style="text-align:center; margin-bottom: 2rem;">
-      <div class="section-label">🖼️ 瞬间集锦</div>
-      <h2 class="section-title" style="font-size: clamp(1.35rem, 3.5vw, 1.75rem);">夏天藏在每一张照片里</h2>
-      <p class="section-desc" style="margin-left:auto; margin-right:auto; margin-bottom: 0; font-size: 0.95rem;">
-        照片自动轮播，点击可放大查看
+  <div class="carousel-inner">
+    <div class="section-header">
+      <div class="section-tag">✦ 瞬间集锦 ✦</div>
+      <h2 class="section-title">夏天藏在每一张照片里</h2>
+      <p class="section-desc">
+        翻开拍立得，一张一张都是夏天的味道
       </p>
     </div>
 
@@ -865,48 +1203,58 @@ body {
       <button class="flip-btn next" onclick="nextFlip()">›</button>
       <div class="flip-card" id="flipCard">
         <div class="flip-face front" id="flipFront">
-          <div class="flip-photo-wrap">
+          <div class="flip-photo-wrap flip-photo-area">
             <img src="photos/20260721_rainbow.jpg" alt="7月21日 · 雨后看见彩虹" onclick="openLightbox(this)">
           </div>
-          <div class="flip-caption"><span class="date">7月21日</span>雨后看见彩虹 🌈</div>
+          <div class="flip-caption-area">
+            <div class="date">7月21日</div>
+            <div class="title">雨后看见彩虹 🌈</div>
+          </div>
         </div>
         <div class="flip-face back" id="flipBack">
-          <div class="flip-photo-wrap">
+          <div class="flip-photo-wrap flip-photo-area">
             <img src="photos/20260724_cicada.jpg" alt="7月24日 · 和知了面对面" onclick="openLightbox(this)">
           </div>
-          <div class="flip-caption"><span class="date">7月24日</span>和知了面对面 🦗</div>
+          <div class="flip-caption-area">
+            <div class="date">7月24日</div>
+            <div class="title">和知了面对面 🦗</div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="flip-dots" id="flipDots"></div>
-    <div class="flip-counter"><b id="flipCurrent">1</b> / <span id="flipTotal">10</span></div>
+    <div class="flip-controls">
+      <div class="flip-dots" id="flipDots"></div>
+      <div class="flip-counter"><b id="flipCurrent">1</b> / <span id="flipTotal">10</span></div>
+    </div>
   </div>
 </section>
 
-<!-- ===== Summary ===== -->
-<section class="section">
-  <div class="summary-card">
-    <div class="quote-mark">"</div>
+<!-- ===== Summary Letter ===== -->
+<section class="letter-section">
+  <div class="letter-card">
+    <div class="greeting">亲爱的达哥：</div>
     <p>
-      这个暑假，达哥走进了大自然的怀抱。<br>
-      他在田地里拔过花生，在葡萄架下摘过葡萄，在瓜田里抱过西瓜；<br>
-      他摸过知了的翅膀，抓过蚯蚓的身子，捧过小鸭子，喂过外婆养的猫；<br>
-      他在清澈见底的河流里游泳，举着红色铲子大喊大叫，笑得比夏天的太阳还灿烂。
+      这个暑假，你走进了大自然的怀抱。你在田地里拔过花生，在葡萄架下摘过葡萄，在瓜田里抱过西瓜；你摸过知了的翅膀，抓过蚯蚓的身子，捧过小鸭子，喂过外婆养的猫；你在清澈见底的河流里游泳，举着红色铲子大喊大叫，笑得比夏天的太阳还灿烂。
     </p>
-    <p style="font-size: 1rem; color: var(--muted-fg);">
-      大自然教会他的，远比我们以为的多——<br>
-      泥土的温度，水的清凉，生命的柔软，和探索的勇气。<br>
-      这些记忆会像河底的鹅卵石，被时间的流水冲得越来越亮。
+    <p class="highlight">
+      大自然教会你的，远比我们以为的多——<br>
+      泥土的温度，水的清凉，<br>
+      生命的柔软，和探索的勇气。
     </p>
-    <div class="signoff">
-      记录于 2026年9月3日 · 达哥 5岁1个月 · 用爱收藏每一天
+    <p>
+      这些记忆会像河底的鹅卵石，被时间的流水冲得越来越亮。等你长大以后翻开这本手账，希望你还能想起五岁那年的夏天，阳光很暖，笑声很响，而我们，一直都在你身边。
+    </p>
+    <div class="letter-signoff">
+      <div class="signature">爱你的家人</div>
+      <div class="date">2026年9月 · 夏末</div>
     </div>
   </div>
 </section>
 
 <!-- ===== Footer ===== -->
 <footer class="footer">
-  <p>© 2026 达哥成长记录 · 记录不是任务，是陪伴的脚印</p>
+  <p>✿ 达哥成长记录 · 2026盛夏 ✿</p>
+  <p class="small">记录不是任务，是陪伴的脚印</p>
 </footer>
 
 <!-- ===== Lightbox ===== -->
@@ -922,15 +1270,17 @@ function openLightbox(img) {
   var lbImg = document.getElementById('lightbox-img');
   lbImg.src = img.src;
   lb.classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
 }
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeLightbox();
 });
 
-// ===== 3D Flip Carousel =====
+// ===== 3D Flip Polaroid Carousel =====
 var flipPhotos = [
   { src: 'photos/20260721_rainbow.jpg', date: '7月21日', title: '雨后看见彩虹 🌈' },
   { src: 'photos/20260724_cicada.jpg', date: '7月24日', title: '和知了面对面 🦗' },
@@ -956,7 +1306,6 @@ var flipStageEl = document.getElementById('flipStage');
 
 function initFlip() {
   flipTotalEl.textContent = flipPhotos.length;
-  // Create dots
   for (var i = 0; i < flipPhotos.length; i++) {
     var dot = document.createElement('button');
     dot.className = 'flip-dot' + (i === 0 ? ' active' : '');
@@ -975,15 +1324,15 @@ function initFlip() {
 function updateFace(faceEl, index) {
   var photo = flipPhotos[index];
   var img = faceEl.querySelector('img');
-  var caption = faceEl.querySelector('.flip-caption');
+  var captionArea = faceEl.querySelector('.flip-caption-area');
   img.src = photo.src;
   img.alt = photo.date + ' · ' + photo.title;
-  caption.innerHTML = '<span class="date">' + photo.date + '</span>' + photo.title;
+  captionArea.querySelector('.date').textContent = photo.date;
+  captionArea.querySelector('.title').textContent = photo.title;
 }
 
 function nextFlip() {
   var nextIdx = (flipIndex + 1) % flipPhotos.length;
-  // Update the back face with next photo, then flip
   if (!isFlipped) {
     updateFace(flipBack, nextIdx);
     flipCard.style.transform = 'rotateY(180deg)';
@@ -1012,16 +1361,15 @@ function prevFlip() {
 
 function goToFlip(idx) {
   if (idx === flipIndex) return;
-  var nextIdx = idx;
   if (!isFlipped) {
-    updateFace(flipBack, nextIdx);
+    updateFace(flipBack, idx);
     flipCard.style.transform = 'rotateY(180deg)';
   } else {
-    updateFace(flipFront, nextIdx);
+    updateFace(flipFront, idx);
     flipCard.style.transform = 'rotateY(360deg)';
   }
   isFlipped = !isFlipped;
-  flipIndex = nextIdx;
+  flipIndex = idx;
   updateFlipUI();
 }
 
@@ -1034,7 +1382,7 @@ function updateFlipUI() {
 }
 
 function startFlipAutoplay() {
-  flipAutoplay = setInterval(nextFlip, 4000);
+  flipAutoplay = setInterval(nextFlip, 4200);
 }
 
 function resetFlipAutoplay() {
@@ -1042,7 +1390,6 @@ function resetFlipAutoplay() {
   startFlipAutoplay();
 }
 
-// Pause on hover
 flipStageEl.addEventListener('mouseenter', function() {
   clearInterval(flipAutoplay);
 });
@@ -1050,7 +1397,6 @@ flipStageEl.addEventListener('mouseleave', function() {
   startFlipAutoplay();
 });
 
-// Keyboard nav
 document.addEventListener('keydown', function(e) {
   if (e.key === 'ArrowLeft') {
     prevFlip();
@@ -1062,6 +1408,34 @@ document.addEventListener('keydown', function(e) {
 });
 
 initFlip();
+
+// ===== Scroll reveal animations =====
+function revealOnScroll() {
+  var elements = document.querySelectorAll('.journal-entry, .nature-polaroid, .sticker');
+  var windowHeight = window.innerHeight;
+  
+  elements.forEach(function(el) {
+    var rect = el.getBoundingClientRect();
+    var isVisible = rect.top < windowHeight - 80;
+    if (isVisible) {
+      el.style.opacity = '1';
+      el.style.transform = el.style.transform || '';
+    }
+  });
+}
+
+// Set initial state for scroll reveal
+document.addEventListener('DOMContentLoaded', function() {
+  var entries = document.querySelectorAll('.journal-entry, .nature-polaroid');
+  entries.forEach(function(el) {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+  });
+  revealOnScroll();
+});
+
+window.addEventListener('scroll', revealOnScroll);
 </script>
 </body>
 </html>

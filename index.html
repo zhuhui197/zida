@@ -771,6 +771,87 @@ body > * { position: relative; z-index: 1; }
   color: var(--ink-faint);
 }
 
+/* ===== More Albums ===== */
+.more-albums {
+  padding: 4rem 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.album-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.album-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: block;
+}
+.album-card:hover {
+  transform: translateY(-6px) rotate(-1deg);
+  box-shadow: var(--shadow-lift);
+}
+.album-cover {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+.album-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+.album-card:hover .album-cover img {
+  transform: scale(1.05);
+}
+.album-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: var(--accent);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-family: var(--font-display);
+  transform: rotate(-3deg);
+}
+.album-info {
+  padding: 1.2rem 1.5rem 1.5rem;
+  position: relative;
+}
+.album-info h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+}
+.album-info p {
+  font-size: 0.9rem;
+  color: var(--ink-light);
+  font-family: var(--font-hand);
+  font-size: 1.1rem;
+}
+.album-arrow {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  color: var(--accent);
+  transition: transform 0.3s;
+}
+.album-card:hover .album-arrow {
+  transform: translateY(-50%) translateX(5px);
+}
+
 /* ===== Footer ===== */
 .footer {
   text-align: center;
@@ -1248,6 +1329,27 @@ body > * { position: relative; z-index: 1; }
       <div class="signature">爱你的家人</div>
       <div class="date">2026年9月 · 夏末</div>
     </div>
+  </div>
+</section>
+
+<!-- ===== More Albums ===== -->
+<section class="more-albums">
+  <div class="section-title">
+    <h2>更多成长记录</h2>
+    <div class="en">More Memories</div>
+  </div>
+  <div class="album-cards">
+    <a href="birthday5/index.html" class="album-card">
+      <div class="album-cover">
+        <img src="birthday5/photos/20260727_cake.jpg" alt="5岁生日">
+        <div class="album-badge">🎂 生日特辑</div>
+      </div>
+      <div class="album-info">
+        <h3>达哥5岁啦</h3>
+        <p>2026.07.27 · 耕渔雅院</p>
+        <span class="album-arrow">→</span>
+      </div>
+    </a>
   </div>
 </section>
 

@@ -449,10 +449,18 @@
   }
   .video-card:nth-child(1) { transform: rotate(-1.5deg); }
   .video-card:nth-child(2) { transform: rotate(1.5deg); }
+  .video-card .video-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9/16;
+    background: #111;
+    overflow: hidden;
+  }
   .video-card video {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
-    background: #000;
   }
   .video-card .video-caption {
     font-family: 'Long Cang', cursive;
@@ -857,18 +865,22 @@
     <div class="video-grid">
       <div class="video-card">
         <div class="video-tape"></div>
-        <video controls poster="photos/20260727_pond.jpg">
-          <source src="photos/20260727_video1.mp4" type="video/mp4">
-          您的浏览器不支持视频播放
-        </video>
+        <div class="video-wrap">
+          <video controls preload="metadata" playsinline webkit-playsinline poster="photos/20260727_pond.jpg">
+            <source src="photos/20260727_video1.mp4" type="video/mp4">
+            您的浏览器不支持视频播放，<a href="photos/20260727_video1.mp4" style="color:#fff;">点此下载</a>
+          </video>
+        </div>
         <div class="video-caption">喂鱼小视频 · 13:32</div>
       </div>
       <div class="video-card">
         <div class="video-tape" style="background: var(--tape-yellow);"></div>
-        <video controls poster="photos/20260727_cake.jpg">
-          <source src="photos/20260727_video2.mp4" type="video/mp4">
-          您的浏览器不支持视频播放
-        </video>
+        <div class="video-wrap">
+          <video controls preload="metadata" playsinline webkit-playsinline poster="photos/20260727_cake.jpg">
+            <source src="photos/20260727_video2.mp4" type="video/mp4">
+            您的浏览器不支持视频播放，<a href="photos/20260727_video2.mp4" style="color:#fff;">点此下载</a>
+          </video>
+        </div>
         <div class="video-caption">生日夜晚 · 19:42</div>
       </div>
     </div>

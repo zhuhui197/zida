@@ -479,32 +479,6 @@ body {
   line-height: 1;
 }
 
-/* ===== Back to Home ===== */
-.back-home {
-  position: fixed;
-  top: 1.5rem;
-  left: 1.5rem;
-  z-index: 50;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.6rem 1.1rem;
-  background: rgba(255, 249, 232, 0.15);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(245, 215, 110, 0.3);
-  border-radius: 9999px;
-  color: var(--moon-yellow);
-  text-decoration: none;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-.back-home:hover {
-  background: rgba(245, 215, 110, 0.25);
-  transform: translateX(-3px);
-}
-.back-home span { font-size: 1rem; }
-
 /* ===== Footer ===== */
 .footer {
   text-align: center;
@@ -515,6 +489,23 @@ body {
 .footer p {
   font-size: 0.85rem;
   color: var(--muted-fg);
+}
+.footer-nav {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed var(--border);
+}
+.footer-nav a {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+.footer-nav a:hover { color: var(--primary-dark); }
+.footer-nav .sep {
+  margin: 0 1rem;
+  color: var(--border);
 }
 
 /* ===== Responsive ===== */
@@ -539,12 +530,6 @@ body {
 </style>
 </head>
 <body>
-
-<!-- 返回主页 -->
-<a href="../index.html" class="back-home">
-  <span>←</span>
-  <span>返回手账首页</span>
-</a>
 
 <!-- ===== Hero ===== -->
 <header class="hero">
@@ -806,6 +791,11 @@ body {
 <footer class="footer">
   <p>达哥成长记录 · 2026中秋月圆</p>
   <p style="margin-top: 0.5rem; font-size: 0.75rem;">月圆人团圆，风清月正明 🌕</p>
+  <div class="footer-nav">
+    <a href="../index.html">← 返回首页</a>
+    <span class="sep">·</span>
+    <a href="../summer2026/index.html">快乐暑假特辑 →</a>
+  </div>
 </footer>
 
 <script>
